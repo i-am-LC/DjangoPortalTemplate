@@ -1,9 +1,19 @@
 # Django Portal Template
 
-A user portal template built using Django Cookiecutter, AWS and OTP security.
+GitHub Copilot: Sure, here's a description for your Django project:
+
+Django Portal Template is a web application built using Django Cookiecutter that provides secure user authentication and login verification using OTP (one-time password) and static device setup (such as Google 2FA). The project also includes a feature that allows users to view their login records.
+
+The project is designed to be hosted on AWS (Amazon Web Services) and uses AWS email service for email verification. With its robust security features and user-friendly interface, Django Portal Template is an ideal solution for businesses and organizations that require a secure and reliable user portal.
+
+Django Portal Template at is core is aimed to streamline the deployment of secure, access restricted websites.
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Built for AWS](https://img.shields.io/badge/built%20for-AWS-orange?logo=amazon-aws)](https://aws.amazon.com/)
+[![OTP Login Verification](https://img.shields.io/badge/OTP-login%20verification-green)](https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm)
+[![Built with Bootstrap](https://img.shields.io/badge/built%20with-Bootstrap-563d7c?logo=bootstrap)](https://getbootstrap.com/)
+[![Built with PostgreSQL](https://img.shields.io/badge/built%20with-PostgreSQL-336791?logo=postgresql)](https://www.postgresql.org/)
 
 License: MIT
 
