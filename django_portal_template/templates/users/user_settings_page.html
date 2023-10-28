@@ -1,0 +1,133 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}
+  {% translate "User Settings" %}
+{% endblock head_title %}
+{% block content %}
+  <div class="container-fluid p-0">
+    <h1 class="h3 mb-3">Settings</h1>
+    <div class="row">
+      <div class="col-md-3 col-xl-2">
+        <div class="card">
+          <div class="list-group list-group-flush" role="tablist">
+            <a class="list-group-item list-group-item-action active list-group-item-primary"
+               data-bs-toggle="list"
+               href="#security"
+               role="tab"
+               aria-selected="false"
+               tabindex="-1">Security</a>
+            <a class="list-group-item list-group-item-action list-group-item-primary"
+               data-bs-toggle="list"
+               href="#login-history"
+               role="tab"
+               aria-selected="false"
+               tabindex="-1">Login history</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-xl-10">
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="security" role="tabpanel">
+            <div class="list-group mb-5 shadow ">
+              <div class="list-group-item bg-white">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <strong class="mb-2">{% translate 'Email' %}</strong>
+                    <p class="text-muted mb-0">Manage your email address.</p>
+                  </div>
+                  <div class="col-auto">
+                    {# URL provided by django-allauth/account/urls.py #}
+                    <a href="{% url 'account_email' %}" class="btn btn-primary float-right">{% translate 'Change Email' %}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item bg-white">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <strong class="mb-2">{% translate 'Password reset' %}</strong>
+                    <p class="text-muted mb-0">
+                      Request a password reset. An email will be sent to your email address containing a reset link.
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    {# URL provided by django-allauth/account/urls.py #}
+                    <a href="{% url 'account_reset_password' %}"
+                       class="btn btn-primary float-right">{% translate 'Password reset' %}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item bg-white">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <strong class="mb-2">{% translate 'Two-Factor Authentication' %}</strong>
+                    <p class="text-muted mb-0">
+                      Two-factor authentication is an enhanced security measure.
+                      Once enabled, you'll be required to provide two types of identification when you log in.
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    {% if totp_dev %}
+                      <a href="{% url 'two-factor-remove' %}"
+                         class="btn btn-warning float-right">{% translate 'Disable' %}</a>
+                    {% else %}
+                      <a href="{% url 'two-factor-setup' %}"
+                         class="btn btn-primary float-right">{% translate 'Enable 2FA' %}</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="list-group-item bg-white">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <strong class="mb-2">{% translate 'Two-factor authentication backup codes' %}</strong>
+                    <p class="text-muted mb-0">
+                      Backup codes are an extra set of one-time-use codes
+                      that you should keep with you physically. You can use one of these when logging in if
+                      your two-factor authentication device isn't available.
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    {% if static_dev %}
+                      <a href="{% url 'two-factor-backup-tokens' %}"
+                         class="btn btn-primary float-right">{% translate 'View' %}</a>
+                    {% else %}
+                      <a href="{% url 'two-factor-setup' %}"
+                         class="btn btn-primary float-right">{% translate 'Enable 2FA' %}</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="login-history" role="tabpanel">
+            <div class="table-responsive">
+              <table class="table table-hover border bg-white shadow">
+                <thead>
+                  <tr>
+                    <th>Device</th>
+                    <th>Location</th>
+                    <th>IP</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for log in access_history %}
+                    <tr>
+                      <td>{{ log.device }}</td>
+                      <td>{{ log.location }}</td>
+                      <td>{{ log.ip_address }}</td>
+                      <td>{{ log.time|date:"M d, Y, f a" }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

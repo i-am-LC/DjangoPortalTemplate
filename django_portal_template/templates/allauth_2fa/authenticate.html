@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+  {% translate "Two-Factor Authentication" %}
+{% endblock head_title %}
+{% block content %}
+  <div class="row mt-5">
+    <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+      <div class="mx-auto text-center my-4">
+        <h1>{% translate "Two-Factor Authentication" %}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mx-auto text-center">
+    <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">{% translate 'Submit' %}</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+  {% translate "Two-Factor Backup" %}
+{% endblock head_title %}
+{% block content %}
+  <div class="row mt-5">
+    <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+      <div class="mx-auto text-center my-4">
+        <h1>{% translate "Two-Factor Authentication Backup Tokens" %}</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center mx-auto text-center">
+      <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+        <p>{% translate 'Backup codes can be used to access your account in the absence of your authenticator device.' %}</p>
+        <p class="text-warning">
+          <b>{% translate 'Never share your backup codes and make sure to store them in a safe place.' %}</b>
+        </p>
+        {% if backup_tokens %}
+          {% if reveal_tokens %}
+            <table class="text-center mx-auto">
+              <thead>
+                <tr>
+                  <th>{% translate 'Backup codes' %}</th>
+                </tr>
+                <tr>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for token in backup_tokens %}
+                  <tr>
+                    <td>
+                      <h5>{{ token.token }}</h5>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            {% translate 'Backup tokens have been generated, but are not revealed here for security reasons. Press the button below to generate new ones.' %}
+          {% endif %}
+        {% else %}
+          {% translate 'No tokens current set. Press the button below to generate some.' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mx-auto text-center">
+    <div class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+      <br />
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-outline-primary" type="submit">{% translate 'Generate Backup Codes' %}</button>
+      </form>
+      <br />
+      <a href="{% url 'users:user_settings_view' %}" class="btn btn-primary">Finish</a>
+    </div>
+  </div>
+{% endblock content %}

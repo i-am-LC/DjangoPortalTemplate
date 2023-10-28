@@ -1,0 +1,13 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+  {% translate "Sign Up Closed" %}
+{% endblock head_title %}
+{% block inner %}
+  <div class="text-center mt-4">
+    <h1>{% translate "Sign Up Closed" %}</h1>
+    <p class="lead">{% translate "We are sorry, but the sign up is currently closed." %}</p>
+  </div>
+{% endblock inner %}
