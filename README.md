@@ -23,13 +23,21 @@ Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings
 
 ## Basic Commands
 
+### Docker
+
+This project utilises Docker. See detailed docker instructions:
+- [Run locally](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally-docker.html).
+- [Deployment](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+
+
 ### Setting Up Your Users
 
 - To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
 
 - To create a **superuser account**, use this command:
 
-      $ python manage.py createsuperuser
+      $ docker compose -f local.yml run --rm django python manage.py createsuperuser
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
@@ -43,17 +51,13 @@ Running type checks with mypy:
 
 To run the tests, check your test coverage, and generate an HTML coverage report:
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+    $ docker compose -f local.yml run --rm django coverage run -m pytest
+    $ docker compose -f local.yml run --rm django coverage report
+    $ docker compose -f local.yml run --rm django coverage html
 
 #### Running tests with pytest
 
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+    $ docker compose -f local.yml run --rm django pytest
 
 ### Celery
 
@@ -92,7 +96,3 @@ You must set the DSN url in production.
 ## Deployment
 
 The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
